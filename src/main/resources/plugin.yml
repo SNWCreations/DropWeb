@@ -1,0 +1,7 @@
+name: Dropweb
+version: '${project.version}'
+main: snw.dropweb.Main
+api-version: 1.16
+author: SNWCreations
+website: https://space.bilibili.com/57486712
+description: "Subscribe SNWCreations at https://space.bilibili.com/57486712 please"
