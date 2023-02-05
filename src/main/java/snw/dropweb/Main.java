@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.logging.Level;
+
 public final class Main extends JavaPlugin implements Listener {
     private static final int MOVE_OFFSET = 3;
 
@@ -45,25 +47,35 @@ public final class Main extends JavaPlugin implements Listener {
             Location rightdown = null; // expected NotNull in the end
             float base = location.getYaw();
 
-            if (inRange(base, 135, 225)) {
+            if (inRange(base, -225, -135) || inRange(base, 135, 225)) {
                 basePoint.add(0, 0, MOVE_OFFSET);
                 lefttop = basePoint.clone().add(-1, 0, 0);
                 rightdown = basePoint.clone().add(1, 0, 2);
-            } else if (inRange(base, 225, 315)) {
+            }
+            if (inRange(base, -135, -45) || inRange(base, 225, 315)) {
                 basePoint.add(-MOVE_OFFSET, 0, 0);
                 lefttop = basePoint.clone().add(0, 0, -1);
                 rightdown = basePoint.clone().add(-2, 0, 1);
-            } else if (
-                    inRange(base, 315, 361) /* Do not think it is strange lol */
+            }
+            if (
+                    inRange(base, -45, 0) /* Do not think it is strange lol */
+                    || inRange(base, -360, -315)
+                    || inRange(base, 315, 361)
                     || inRange(base, 0, 45)
             ) {
                 basePoint.add(0, 0, -MOVE_OFFSET);
                 lefttop = basePoint.clone().add(1, 0, 0);
                 rightdown = basePoint.clone().add(-1, 0, -2);
-            } else if (inRange(base, 45, 135)) {
+            }
+            if (inRange(base, -315, -225) || inRange(base, 45, 135)) {
                 basePoint.add(MOVE_OFFSET, 0, 0);
                 lefttop = basePoint.clone().add(0, 0, 1);
                 rightdown = basePoint.clone().add(2, 0, -1);
+            }
+
+            if (lefttop == null || rightdown == null) {
+                getLogger().log(Level.SEVERE, "Unable to place block, player yaw: " + base);
+                return;
             }
 
             // location.getWorld().setGameRule(GameRule.SEND_COMMAND_FEEDBACK, false);
