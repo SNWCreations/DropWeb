@@ -1,5 +1,7 @@
 # DropWeb
 
+**Go to [RFMUtility](https://github.com/SNWCreations/RFMUtility) repository for update.**
+
 Minecraft, but 3x1x3 cobweb blocks will be created behind you when you drop a cobweb item...
 
 Developed for [骑单车の茂茂](https://space.bilibili.com/8957291)
